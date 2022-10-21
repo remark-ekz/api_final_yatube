@@ -7,7 +7,6 @@ from posts.models import Comment, Post, User, Group, Follow
 class UserSerializer(serializers.ModelSerializer):
     posts = serializers.StringRelatedField(many=True, read_only=True)
     comments = serializers.StringRelatedField(many=True, read_only=True)
-    # following = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = User
@@ -74,5 +73,5 @@ class FollowSerializer(serializers.ModelSerializer):
     def validate(self, data):
         if data['following'] == self.context.get('request').user:
             raise serializers.ValidationError(
-                'Нальзя подписаться на самого себя!')
+                'Нельзя подписаться на самого себя!')
         return data
